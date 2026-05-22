@@ -6,7 +6,8 @@ A production-style, highly available and secure **3-Tier Web Application** deplo
 
 ## 📐 Architecture Diagram
 
-![3-Tier Web Application Architecture on AWS](https://raw.githubusercontent.com/nihanth/aws-3tier-web-app/main/images/architecture.png)
+<img width="1536" height="1024" alt="ChatGPT Image May 22, 2026, 11_24_17 AM" src="https://github.com/user-attachments/assets/76ac859b-e847-42e8-92eb-eb7e51fc0f7c" />
+
 
 > *Custom VPC with 2 Availability Zones — Internet-Facing ALB → Frontend EC2 → Internal ALB → Backend EC2 → RDS MySQL (Multi-AZ)*
 
@@ -104,11 +105,6 @@ pip3 install requests
 ### 5. Install PyMySQL (Backend only)
 ```bash
 pip3 install pymysql
-```
-
-### 6. Install MySQL Client (Optional — for manual DB testing)
-```bash
-sudo apt install mysql-client -y
 ```
 
 ---
@@ -228,4 +224,4 @@ curl http://localhost:5000/data/1
 ## 👨‍💻 Author
 
 **Nihanth**
-Cloud & DevOps Enthusiast | AWS | Flask | Python
+Cloud & DevOps Enthusiast | AWS | Automation | Containerization 
