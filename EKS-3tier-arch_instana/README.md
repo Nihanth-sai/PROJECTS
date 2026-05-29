@@ -269,7 +269,7 @@ This project focuses on infrastructure deployment and Kubernetes operations.
 
 The **application source code, microservices, and Helm chart** used in this project were **not developed by me**.
 
-I used an existing open-source application and Helm chart for **deployment purposes**.
+I used an existing open-source application and Helm chart for **deployment purposes**. Check out the source code file **https://github.com/Nihanth-NS/three-tier-architecture-demo**
 
 **My work was focused on:**
 
@@ -285,25 +285,3 @@ I used an existing open-source application and Helm chart for **deployment purpo
 **The objective** of this project was to gain hands-on experience with deploying and operating containerized applications on Amazon EKS in a production-style environment.
 
 ---
-
-## 📚 Key Learnings
-
-| Topic | Skills Acquired |
-|-------|-----------------|
-| **Kubernetes** | 🐳 Deployments, Services, Ingress, Persistent Volumes |
-| **EKS Administration** | ⚙️ Cluster creation, node management, IRSA, OIDC |
-| **Helm** | 📦 Package management, Helm charts, deployments |
-| **AWS Integration** | 🔗 Load Balancer Controller, EBS CSI Driver, IAM |
-| **Networking** | 🌐 AWS networking, routing, load balancing |
-| **Security** | 🔐 IAM policies, least privilege access, OIDC federation |
-| **Production Deployments** | 🚀 High availability, scalability, best practices |
-
----
-
-<div align="center">
-
-### 🎓 Created with ❤️ for learning and production-ready Kubernetes deployments
-
-**Status:** ✅ Completed | **License:** Open Source
-
-</div>
