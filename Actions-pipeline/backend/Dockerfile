@@ -1,6 +1,6 @@
-FROM node.22
+FROM node:22
 WORKDIR /back
 COPY package.json .
 RUN npm install
 COPY . .
-CMD ['npm', 'run', 'dev']
+CMD ["npm", "start"]
