@@ -22,6 +22,12 @@ app.get("/health", (req, res) => {
   });
 });
 
+app.get("/api/test", (req, res) => {
+  res.json({
+    message: "Backend Connected Successfully"
+  });
+});
+
 app.use("/auth", authRoutes);
 
 app.use("/employees", employeeRoutes);
