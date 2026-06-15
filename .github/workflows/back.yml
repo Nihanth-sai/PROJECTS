@@ -20,5 +20,9 @@ jobs:
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/backend
         run: |
           npm install
-          node server.js
+      - name: Check
+        run: |
+            node server.js &
+            sleep 5
+            node test.js
            
