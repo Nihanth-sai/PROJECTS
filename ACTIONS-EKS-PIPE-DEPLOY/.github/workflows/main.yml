@@ -1,0 +1,25 @@
+name: Image Builder
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'frontend/**'
+jobs:
+  step_a:
+    runs-on: ubuntu-latest
+    steps:
+      - name: folder move
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout:  frontend
+      - name: install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install pre
+        working-directory: frontend
+        run: |
+          npm install
+          npm install axios react-router-dom
+          npm run build
+           
