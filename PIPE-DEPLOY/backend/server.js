@@ -28,17 +28,13 @@ app.get("/api/test", (req, res) => {
   });
 });
 
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 
-app.use("/employees", employeeRoutes);
+app.use("/api/employees", employeeRoutes);
 
 app.listen(process.env.PORT || 5000, () => {
   console.log(
     `Server running on port ${process.env.PORT || 5000}`
   );
 });
-app.get("/api/test", (req, res) => {
-  res.json({
-    message: "Backend Connected Successfully"
-  });
-});
+

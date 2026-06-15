@@ -1,42 +1,44 @@
-import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import EmployeeList from "./pages/EmployeeList";
+import AddEmployee from "./pages/AddEmployee";
+import EditEmployee from "./pages/EditEmployee"
 
 function App() {
-  const [message, setMessage] = useState("Loading...");
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    fetch("/api/test")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to connect to backend");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setMessage(data.message);
-      })
-      .catch((err) => {
-        console.error(err);
-        setError("Backend connection failed");
-      });
-  }, []);
-
   return (
-    <div
-      style={{
-        textAlign: "center",
-        marginTop: "100px",
-        fontFamily: "Arial",
-      }}
-    >
-      <h1>Employee Management System</h1>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
 
-      {error ? (
-        <h2 style={{ color: "red" }}>{error}</h2>
-      ) : (
-        <h2>{message}</h2>
-      )}
-    </div>
+        <Route
+          path="/register"
+          element={<Register />}
+        />
+
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
+        />
+
+        <Route
+          path="/employees"
+          element={<EmployeeList />}
+        />
+
+	<Route
+	  path="/addemployee"
+	  element={<AddEmployee />}
+	/>
+
+	<Route
+          path="/editemployee/:id"
+          element={<EditEmployee />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

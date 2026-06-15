@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import API from "../api";
 
 function EmployeeList() {
@@ -9,14 +10,47 @@ function EmployeeList() {
   }, []);
 
   const fetchEmployees = async () => {
-    const res = await API.get("/employees");
+    try {
+      const token = localStorage.getItem("token");
 
-    setEmployees(res.data);
+      const res = await API.get("/employees", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setEmployees(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const deleteEmployee = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      await API.delete(`/employees/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      fetchEmployees();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
     <div>
       <h2>Employees</h2>
+
+      <Link to="/addemployee">
+        <button>Add Employee</button>
+      </Link>
+
+      <br />
+      <br />
 
       <table border="1">
         <thead>
@@ -24,7 +58,7 @@ function EmployeeList() {
             <th>Name</th>
             <th>Email</th>
             <th>Department</th>
-            <th>Salary</th>
+            <th>Actions</th>
           </tr>
         </thead>
 
@@ -34,7 +68,18 @@ function EmployeeList() {
               <td>{emp.name}</td>
               <td>{emp.email}</td>
               <td>{emp.department}</td>
-              <td>{emp.salary}</td>
+
+              <td>
+                <Link to={`/editemployee/${emp.id}`}>
+                  <button>Edit</button>
+                </Link>
+
+                <button
+                  onClick={() => deleteEmployee(emp.id)}
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
