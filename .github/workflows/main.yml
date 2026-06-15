@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'frontend/**'
+      - 'ACTIONS-EKS-PIPE-DEPLOY/frontend/**'
 jobs:
   step_a:
     runs-on: ubuntu-latest
