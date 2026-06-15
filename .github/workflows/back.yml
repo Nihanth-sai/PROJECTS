@@ -1,0 +1,24 @@
+name: Image Builder-1
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'ACTIONS-EKS-PIPE-DEPLOY/backend/**'
+jobs:
+  step_a:
+    runs-on: ubuntu-latest
+    steps:
+      - name: folder move
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: ACTIONS-EKS-PIPE-DEPLOY
+      - name: install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pre
+        working-directory: ACTIONS-EKS-PIPE-DEPLOY/backend
+        run: |
+          npm install
+          npm run build
+           
