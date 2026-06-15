@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: '18'
       - name: Install pre
-        working-directory: frontend
+        working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
         run: |
           npm install
           npm run build
