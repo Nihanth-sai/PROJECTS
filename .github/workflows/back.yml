@@ -20,5 +20,5 @@ jobs:
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/backend
         run: |
           npm install
-          npm run build
+          node server.js
            
