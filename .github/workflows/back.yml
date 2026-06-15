@@ -21,6 +21,7 @@ jobs:
         run: |
           npm install
       - name: Check
+        working-directory: ACTIONS-EKS-PIPE-DEPLOY/backend
         run: |
             node server.js &
             sleep 5
