@@ -1,4 +1,4 @@
-.name: Image Builder
+name: Image Builder
 permissions:
   contents: write
 on:
