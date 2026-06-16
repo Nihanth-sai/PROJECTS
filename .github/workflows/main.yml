@@ -11,13 +11,13 @@ jobs:
       - name: folder move
         uses: actions/checkout@v4
         with:
-          sparse-checkout: ACTIONS-EKS-PIPE-DEPLOY
+          sparse-checkout: ACTIONS-EKS-PIPE-DEPLOY/frontend
       - name: install node
         uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Install pre
-        working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
+        working-directory: frontend
         run: |
           npm install
           npm run build

@@ -11,19 +11,20 @@ jobs:
       - name: folder move
         uses: actions/checkout@v4
         with:
-          sparse-checkout: ACTIONS-EKS-PIPE-DEPLOY
+          sparse-checkout: ACTIONS-EKS-PIPE-DEPLOY/backend
       - name: install node
         uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Install pre
-        working-directory: ACTIONS-EKS-PIPE-DEPLOY/backend
+        working-directory: backend
         run: |
           npm install
       - name: Check
-        working-directory: ACTIONS-EKS-PIPE-DEPLOY/backend
+        working-directory: backend
         run: |
             node server.js &
             sleep 5
             node test.js
+
            
