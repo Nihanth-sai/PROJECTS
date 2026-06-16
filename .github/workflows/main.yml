@@ -37,7 +37,7 @@ jobs:
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
         run: |
           VERSION=$(cat versions.txt)
-          echo "VERSION=$VERSION " >> $GITHUB_ENV
+          echo "$VERSION" >> $GITHUB_ENV
       - name: Docker image creation
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
         run: |
@@ -50,7 +50,7 @@ jobs:
           VERSION=$(cat versions.txt)
           NEW_VERSION=$((VERSION + 1))
           echo $NEW_VERSION > versions.txt
-          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+          echo "$NEW_VERSION" >> $GITHUB_ENV
       - name: push to github
         if: success()
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
