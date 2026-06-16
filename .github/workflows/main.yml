@@ -41,7 +41,7 @@ jobs:
       - name: Docker image creation
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
         run: |
-          docker build -t 384235570959.dkr.ecr.us-east-1.amazonaws.com/pipeline/eks:v${{ env.VERSION }} .
+          docker build -t 384235570959.dkr.ecr.us-east-1.amazonaws.com/pipeline/eks:frontv${{ env.VERSION }} .
           echo ${{ env.VERSION }}
       - name: Push to ECR
         if: success()
@@ -49,7 +49,7 @@ jobs:
           sudo snap install aws-cli --classic
           aws configure set aws_access_key_id ${{ secrets.aws_access_key_id }} && aws configure set aws_secret_access_key ${{ secrets.aws_secret_access_key }}  && aws configure set default.region "us-east-1" && aws configure set default.output "json"
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 384235570959.dkr.ecr.us-east-1.amazonaws.com
-          docker push 384235570959.dkr.ecr.us-east-1.amazonaws.com/pipeline/eks:v${{ env.VERSION }}
+          docker push 384235570959.dkr.ecr.us-east-1.amazonaws.com/pipeline/eks:frontv${{ env.VERSION }}
       - name: update version
         if: success()
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
