@@ -21,4 +21,15 @@ jobs:
         run: |
           npm install
           npm run build
-           
+  step_b:
+    needs: step_a
+    runs-on: ubuntu-latest
+    steps:
+      - name: Folder copy
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: ACTIONS-EKS-PIPE-DEPLOY
+      - name: Docker image creation
+        working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
+        run: |
+          docker build -t nihanthsai/nihan:action-frontend .

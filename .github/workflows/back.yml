@@ -37,7 +37,7 @@ jobs:
       - name: Docker image creation
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/backend
         run: |
-          docker build -t nihanthsai/nihan:actionv1 .
+          docker build -t nihanthsai/nihan:action-backend .
 
         
 
