@@ -29,7 +29,25 @@ jobs:
         uses: actions/checkout@v4
         with:
           sparse-checkout: ACTIONS-EKS-PIPE-DEPLOY
+      - name: Read version
+        working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
+        run: echo "VERSION=$(cat versions.txt)" >> $GITHUB_ENV
       - name: Docker image creation
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
         run: |
-          docker build -t nihanthsai/nihan:action-frontend .
+          docker build -t nihanthsai/nihan:action-frontend-v${{ env.VERSION }} .
+      - name: update version
+        if: success()
+        working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
+        run: |
+          echo "VERSION=$((${{ env.VERSION }} + 1))" > versions.txt
+      - name: push to github
+        if: success()
+        working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
+        run: |
+          git config --global user.name "Nihanth-sai"
+          git config --global user.email "bandaru.nihanthsai@hcltech.com"
+          git add versions.txt
+          git commit -m "Update version to ${{ env.VERSION }}"
+          git push origin main
+          
