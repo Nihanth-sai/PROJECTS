@@ -37,7 +37,7 @@ jobs:
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
         run: |
           VERSION=$(cat up_cmg_versions.txt)
-          echo "$VERSION" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
       - name: Docker image creation
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
         run: |
