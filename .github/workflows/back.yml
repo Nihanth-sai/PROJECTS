@@ -26,5 +26,18 @@ jobs:
             node server.js &
             sleep 5
             node test.js
+  step_b:
+    needs: step_a
+    runs-on: ubuntu-latest
+    steps:
+      - name: Folder copy
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: ACTIONS-EKS-PIPE-DEPLOY
+      - name: Docker image creation
+        working-directory: ACTIONS-EKS-PIPE-DEPLOY/backend
+        run: |
+          docker build -t nihanthsai/nihan:actionv1 .
 
-           
+        
+
