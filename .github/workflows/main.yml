@@ -37,19 +37,20 @@ jobs:
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
         run: |
           VERSION=$(cat versions.txt)
-          echo $VERSION
+          echo "VERSION=$VERSION " >> $GITHUB_ENV
       - name: Docker image creation
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
         run: |
           docker build -t nihanthsai/nihan:action-frontend-v${{ env.VERSION }} .
-          echo env.VERSION
+          echo ${{ env.VERSION }}
       - name: update version
         if: success()
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
         run: |
           VERSION=$(cat versions.txt)
           NEW_VERSION=$((VERSION + 1))
-          echo "VERSION=$NEW_VERSION" > versions.txt
+          echo $NEW_VERSION > versions.txt
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
       - name: push to github
         if: success()
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
