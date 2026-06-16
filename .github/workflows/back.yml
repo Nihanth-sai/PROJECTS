@@ -1,4 +1,6 @@
 name: Image Builder-1
+permissions:
+  contents: write
 on:
   workflow_dispatch:
   push:
@@ -6,6 +8,7 @@ on:
       - 'ACTIONS-EKS-PIPE-DEPLOY/backend/**'
 jobs:
   step_a:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: folder move
@@ -27,6 +30,7 @@ jobs:
             sleep 5
             node test.js
   step_b:
+    if: github.actor != 'github-actions[bot]'
     needs: step_a
     runs-on: ubuntu-latest
     steps:
@@ -34,10 +38,33 @@ jobs:
         uses: actions/checkout@v4
         with:
           sparse-checkout: ACTIONS-EKS-PIPE-DEPLOY
+      - name: Read version
+        working-directory: ACTIONS-EKS-PIPE-DEPLOY/backend
+        run: |
+          VERSION=$(cat up_cmg_versions.txt)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
       - name: Docker image creation
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/backend
         run: |
-          docker build -t nihanthsai/nihan:action-backend .
-
+          docker build -t nihanthsai/nihan:action-backendv${{ env.VERSION }} .
+      - name: update version
+        if: success()
+        working-directory: ACTIONS-EKS-PIPE-DEPLOY/backend
+        run: |
+          VERSION=$(cat up_cmg_versions.txt)
+          NEW_VERSION=$((VERSION + 1))
+          echo $NEW_VERSION > up_cmg_versions.txt
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+      - name: push to github
+        if: success()
+        working-directory: ACTIONS-EKS-PIPE-DEPLOY/backend
+        run: |
+          git config --global user.name "Nihanth-sai"
+          git config --global user.email "bandaru.nihanthsai@hcltech.com"
+          git add up_cmg_versions.txt
+          git commit -m "Update version to  $NEW_VERSION"
+          git pull origin main --rebase
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git main
+          
         
 
