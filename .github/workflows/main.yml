@@ -1,4 +1,6 @@
 name: Image Builder
+permissions:
+  contents: write
 on:
   workflow_dispatch:
   push:
@@ -6,6 +8,7 @@ on:
       - 'ACTIONS-EKS-PIPE-DEPLOY/frontend/**'
 jobs:
   step_a:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: folder move
@@ -22,6 +25,7 @@ jobs:
           npm install
           npm run build
   step_b:
+    if: github.actor != 'github-actions[bot]'
     needs: step_a
     runs-on: ubuntu-latest
     steps:
@@ -31,7 +35,10 @@ jobs:
           sparse-checkout: ACTIONS-EKS-PIPE-DEPLOY
       - name: Read version
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
-        run: echo "VERSION=$(cat versions.txt)" >> $GITHUB_ENV
+        run: |
+          VERSION=$(cat versions.txt)
+          NEW_VERSION=$((VERSION + 1))
+          echo $NEW_VERSION > versions.txt
       - name: Docker image creation
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
         run: |
@@ -48,6 +55,7 @@ jobs:
           git config --global user.name "Nihanth-sai"
           git config --global user.email "bandaru.nihanthsai@hcltech.com"
           git add versions.txt
-          git commit -m "Update version to ${{ env.VERSION }}"
-          git push origin main
+          git commit -m "Update version to  $NEW_VERSION"
+          git pull origin main --rebase
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git main
           
