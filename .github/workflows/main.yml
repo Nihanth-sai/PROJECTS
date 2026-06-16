@@ -36,7 +36,7 @@ jobs:
       - name: Read version
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
         run: |
-          VERSION=$(cat versions.txt)
+          VERSION=$(cat up_cmg_versions.txt)
           echo "$VERSION" >> $GITHUB_ENV
       - name: Docker image creation
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
@@ -47,9 +47,9 @@ jobs:
         if: success()
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
         run: |
-          VERSION=$(cat versions.txt)
+          VERSION=$(cat up_cmg_versions.txt)
           NEW_VERSION=$((VERSION + 1))
-          echo $NEW_VERSION > versions.txt
+          echo $NEW_VERSION > up_cmg_versions.txt
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
       - name: push to github
         if: success()
@@ -57,7 +57,7 @@ jobs:
         run: |
           git config --global user.name "Nihanth-sai"
           git config --global user.email "bandaru.nihanthsai@hcltech.com"
-          git add versions.txt
+          git add up_cmg_versions.txt
           git commit -m "Update version to  $NEW_VERSION"
           git pull origin main --rebase
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git main
