@@ -24,7 +24,7 @@ app.get("/health", (req, res) => {
 
 app.get("/api/test", (req, res) => {
   res.json({
-    message: "Backend Connected Successfully and ready to roll"
+    message: "Backend Connected Successfully and ready to roll out"
   });
 });
 
