@@ -16,7 +16,7 @@ jobs:
             PREV_VERSION=$((VERSION - 1))
             echo "PREV_VERSION=$PREV_VERSION" >> $GITHUB_ENV
 
-        - name: Push to ECR
+        - name: Push to EKS
           run: |
             sudo snap install aws-cli --classic
             aws configure set aws_access_key_id ${{ secrets.aws_access_key_id }} && aws configure set aws_secret_access_key ${{ secrets.aws_secret_access_key }}  && aws configure set default.region "us-east-1" && aws configure set default.output "json"
