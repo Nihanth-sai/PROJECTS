@@ -50,13 +50,32 @@ jobs:
           aws configure set aws_access_key_id ${{ secrets.aws_access_key_id }} && aws configure set aws_secret_access_key ${{ secrets.aws_secret_access_key }}  && aws configure set default.region "us-east-1" && aws configure set default.output "json"
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 384235570959.dkr.ecr.us-east-1.amazonaws.com
           docker push 384235570959.dkr.ecr.us-east-1.amazonaws.com/pipeline/eks:frontv${{ env.VERSION }}
-      - name: Install dependencies
+      - name: Send Email before deployment
         if: success()
-        run: |
-          sudo snap install kubectl --classic   
-          curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz" | tar xz -C /tmp && sudo mv /tmp/eksctl /usr/local/bin/   
-          aws eks update-kubeconfig --name serious-funk-crab
-          kubectl set image deployment/front frontend=384235570959.dkr.ecr.us-east-1.amazonaws.com/pipeline/eks:frontv${{ env.VERSION }}
+        uses: dawidd6/action-send-mail@v3
+        with:
+            server_address: smtp.gmail.com
+            server_port: 465
+            secure: true
+            username: ${{ secrets.MAIL_USERNAME }}
+            password: ${{ secrets.MAIL_PASSWORD }}
+            subject: "Approval Required"
+            to: rahul.rajini2003@gmail.com
+            from: GitHub Actions
+            body: "Hi Team,
+                   We have developed frontend new version frontv${{ env.VERSION }} and pushed the image to ECR, 
+                   Kindly check the image version and deploy it in pods.
+                   
+                   
+                   Thank you
+                   PIPELINE-TEAM"
+      # - name: Install dependencies
+      #   if: success()
+      #   run: |
+      #     sudo snap install kubectl --classic   
+      #     curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz" | tar xz -C /tmp && sudo mv /tmp/eksctl /usr/local/bin/   
+      #     aws eks update-kubeconfig --name serious-funk-crab
+      #     kubectl set image deployment/front frontend=384235570959.dkr.ecr.us-east-1.amazonaws.com/pipeline/eks:frontv${{ env.VERSION }}
       - name: update version
         if: success()
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/frontend
