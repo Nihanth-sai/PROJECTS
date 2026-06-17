@@ -1,0 +1,19 @@
+name: Mailcheck
+on:
+    workflow_dispatch:
+jobs:
+    sender:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Send Email before deployment
+          uses: dawidd6/action-send-mail@v3
+          with:
+            server_address: smtp.gmail.com
+            server_port: 465
+            secure: true
+            username: ${{ secrets.MAIL_USERNAME }}
+            password: ${{ secrets.MAIL_PASSWORD }}
+            subject: "Approval Required"
+            to: ${{ secrets.MAIL_TO }}
+            from: GitHub Actions
+            body: "Please approve deployment"
