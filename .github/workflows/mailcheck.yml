@@ -14,6 +14,6 @@ jobs:
             username: ${{ secrets.MAIL_USERNAME }}
             password: ${{ secrets.MAIL_PASSWORD }}
             subject: "Approval Required"
-            to: ${{ secrets.MAIL_TO }}
+            to: rahul.rajini2003@gmail.com
             from: GitHub Actions
             body: "Please approve deployment"
