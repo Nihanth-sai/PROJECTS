@@ -60,7 +60,7 @@ jobs:
             username: ${{ secrets.MAIL_USERNAME }}
             password: ${{ secrets.MAIL_PASSWORD }}
             subject: "Approval Required"
-            to: rahul.rajini2003@gmail.com
+            to: thenihanth@gmail.com
             from: GitHub Actions
             body: "Hi Team,
                    We have developed frontend new version frontv${{ env.VERSION }} and pushed the image to ECR, 

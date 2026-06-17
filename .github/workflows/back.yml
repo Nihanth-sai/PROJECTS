@@ -46,7 +46,7 @@ jobs:
       - name: Docker image creation
         working-directory: ACTIONS-EKS-PIPE-DEPLOY/backend
         run: |
-          docker build -t nihanthsai/nihan:action-backendv${{ env.VERSION }} .
+          docker build -t 384235570959.dkr.ecr.us-east-1.amazonaws.com/pipeline/eks:backendv${{ env.VERSION }} .
       - name: Push to ECR
         if: success()
         run: |
